@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_structure_meet/constants/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -209,6 +210,13 @@ class Utils {
       width: width != null ? width.w : width,
       child: child,
     );
+  }
+
+  static void commonPrint(String text) {
+    if (kDebugMode) {
+      print(text);
+    }
+    return print(text);
   }
 
   //   static void toast(String text) {

@@ -5,9 +5,9 @@ class SharedPref {
 
   late SharedPreferences shared;
 
-  Future<void> getInstance() async {
-    final sharedPreferences = await SharedPreferences.getInstance();
-    shared = sharedPreferences;
+  Future<void> init() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    shared = prefs;
   }
 
   // Singleton instance

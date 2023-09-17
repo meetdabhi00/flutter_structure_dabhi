@@ -5,6 +5,7 @@ import 'package:flutter_project_structure_meet/global.dart';
 import 'package:flutter_project_structure_meet/provider/app_provider.dart';
 import 'package:flutter_project_structure_meet/provider/common_provider.dart';
 import 'package:flutter_project_structure_meet/utils/utils.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -54,11 +55,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      Navigator.pushNamed(
-                        context,
+                      navigator.currentState?.pushNamed(
                         RoutePath.post_detail,
                         arguments: posts[index],
                       );
+                      // Navigator.pushNamed(
+                      //   context,
+                      //   RoutePath.post_detail,
+                      //   arguments: posts[index],
+                      // );
                     },
                     child: Container(
                       margin: const EdgeInsets.all(8),
@@ -67,8 +72,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: ListTile(
-                        title: Text(posts[index].title),
-                        subtitle: Text(posts[index].body),
+                        title: Text(
+                          posts[index].title,
+                          style: TextStyle(fontSize: 20.sp),
+                        ),
+                        subtitle: Text(posts[index].body,
+                            style: TextStyle(fontSize: 20.sp)),
                       ),
                     ),
                   );

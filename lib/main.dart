@@ -7,30 +7,28 @@ import 'package:flutter_project_structure_meet/data/remote/network_api_service.d
 import 'package:flutter_project_structure_meet/data/service/dio_connectivity_retrier.dart';
 import 'package:flutter_project_structure_meet/data/service/logging_interceptor.dart';
 import 'package:flutter_project_structure_meet/data/service/retrier_interceptor.dart';
+import 'package:flutter_project_structure_meet/global.dart';
 import 'package:flutter_project_structure_meet/provider/app_provider.dart';
 import 'package:flutter_project_structure_meet/provider/common_provider.dart';
 import 'package:flutter_project_structure_meet/utils/router.dart';
 import 'package:flutter_project_structure_meet/utils/shared_preference.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  //
   // initialize easy localization for internationalization
-  //
   await EasyLocalization.ensureInitialized();
 
-  //
   // initialize shared preference
-  //
-  await SharedPref.instance.getInstance();
+  await SharedPref.instance.init();
 
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en', 'US')],
-      path:
-          'assets/translations', // <-- change the path of the translation files
+      //change the path of the translation files
+      path: 'assets/translations',
       fallbackLocale: const Locale('en', 'US'),
       child: MultiProvider(
         providers: [
@@ -73,20 +71,29 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      onGenerateRoute: generateRoute,
-      initialRoute:
-          SharedPref.instance.shared.getString(SharePrefConstants.token) != null
-              ? RoutePath.home_screen
-              : RoutePath.home_screen,
-    );
+    return ScreenUtilInit(
+        // designSize: const Size(600, 1020),
+        designSize: const Size(834, 1194),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (_, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            navigatorKey: navigator,
+            locale: context.locale,
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              useMaterial3: true,
+            ),
+            onGenerateRoute: generateRoute,
+            initialRoute: SharedPref.instance.shared
+                        .getString(SharePrefConstants.token) !=
+                    null
+                ? RoutePath.home_screen
+                : RoutePath.home_screen,
+          );
+        });
   }
 }
