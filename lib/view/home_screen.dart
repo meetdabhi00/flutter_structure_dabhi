@@ -40,11 +40,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(Utils.getString(TranslationConstants.home_screen)),
-        backgroundColor: Colors.blue,
-        leading: const SizedBox(),
-        centerTitle: true,
+      // appBar: AppBar(
+      //   title: Text(Utils.getString(TranslationConstants.home_screen)),
+      //   backgroundColor: Colors.blue,
+      //   leading: const SizedBox(),
+      //   centerTitle: true,
+      // ),
+      appBar: Utils.appBar(
+        context: context,
+        title: 'App Bar',
+        rightWidget: const SizedBox.shrink(),
       ),
       body: Consumer<AppProvider>(builder: (context, appProvider, child) {
         if (appProvider.isLoading) {

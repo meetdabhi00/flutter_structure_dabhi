@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_structure_meet/constants/translation_constants.dart';
 import 'package:flutter_project_structure_meet/model/post_model.dart';
+import 'package:flutter_project_structure_meet/utils/common_navigator.dart';
 import 'package:flutter_project_structure_meet/utils/utils.dart';
 
 class PostDetail extends StatelessWidget {
@@ -32,7 +33,7 @@ class PostDetail extends StatelessWidget {
             const SizedBox(height: 16),
             TextButton(
               onPressed: () {
-                Navigator.pop(context);
+                CommonNavigator.pop();
               },
               child: Text(Utils.getString(TranslationConstants.back)),
             ),

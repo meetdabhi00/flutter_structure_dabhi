@@ -1,6 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project_structure_meet/constants/app_colors.dart';
 import 'package:flutter_project_structure_meet/constants/route_path.dart';
 import 'package:flutter_project_structure_meet/constants/shared_preference_constants.dart';
 import 'package:flutter_project_structure_meet/data/remote/network_api_service.dart';
@@ -53,6 +54,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     interceptorsDio();
+    AppColor.loadLight();
   }
 
   // initialize dio and add interceptors

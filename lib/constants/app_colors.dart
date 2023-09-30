@@ -32,7 +32,7 @@ class AppColor {
   static void loadLight() {
     background = _white;
     appbarTextColor = _white;
-    appbarColor = _black;
+    appbarColor = _blue;
     black = _black;
     white = _white;
     textColor = _black;
@@ -47,7 +47,7 @@ class AppColor {
   static void loadDark() {
     background = _black;
     appbarTextColor = _black;
-    appbarColor = _white;
+    appbarColor = _blue;
     black = _white;
     textColor = _white;
     highlightTextColor = _blueAccent;

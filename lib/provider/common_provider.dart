@@ -4,6 +4,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_structure_meet/constants/translation_constants.dart';
+import 'package:flutter_project_structure_meet/utils/common_navigator.dart';
 import 'package:flutter_project_structure_meet/utils/utils.dart';
 
 class CommonProvider extends ChangeNotifier {
@@ -20,7 +21,7 @@ class CommonProvider extends ChangeNotifier {
           isInterNetConnected = true;
         }
         if (isNoInterNetAlertShow && isInterNetConnected) {
-          Navigator.pop(context);
+          CommonNavigator.pop();
           isNoInterNetAlertShow = false;
         }
         if (!isInterNetConnected && !isNoInterNetAlertShow) {
