@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_project_structure_meet/constants/app_config.dart';
 import 'package:flutter_project_structure_meet/data/remote/fetch_data_exception.dart';
+
 class NetworkApiService {
   static const String baseUrl = AppConfig.baseUrl;
 
@@ -52,9 +53,8 @@ class NetworkApiService {
         throw UnauthorisedException(response.data.toString());
       case 506:
       default:
-        throw FetchDataException(
-            'Error occured while communication with server' +
-                ' with status code : ${response.statusCode}');
+        throw FetchDataException('Error occured while communication with server'
+            ' with status code : ${response.statusCode}');
     }
   }
 }

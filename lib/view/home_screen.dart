@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_structure_meet/constants/route_path.dart';
-import 'package:flutter_project_structure_meet/constants/translation_constants.dart';
 import 'package:flutter_project_structure_meet/global.dart';
 import 'package:flutter_project_structure_meet/provider/app_provider.dart';
 import 'package:flutter_project_structure_meet/provider/common_provider.dart';

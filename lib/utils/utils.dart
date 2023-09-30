@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_structure_meet/constants/app_colors.dart';
 import 'package:flutter_project_structure_meet/utils/common_navigator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Utils {
   //translations
@@ -72,7 +73,7 @@ class Utils {
               padding: const EdgeInsets.only(right: 10),
               child: GestureDetector(
                 onTap: actionButtonOnTap,
-                child: Icon(
+                child: commonIcon(
                   actionButtonIcon ?? Icons.info_outline,
                   color: AppColor.icon,
                   size: 35.sp,
@@ -171,7 +172,7 @@ class Utils {
         alignment: alignment ?? Alignment.center,
         child: Center(
           child: Utils.commonIcon(
-            iconSize: iconSize,
+            size: iconSize,
             icon,
             color: iconColor ?? AppColor.white,
           ),
@@ -205,12 +206,12 @@ class Utils {
   static Widget commonIcon(
     IconData icon, {
     Color? color,
-    double? iconSize,
+    double? size,
   }) {
     return Icon(
       icon,
       color: color ?? AppColor.black,
-      size: iconSize?.sp,
+      size: size?.sp,
     );
   }
 
@@ -224,6 +225,41 @@ class Utils {
       width: width?.w,
       child: child,
     );
+  }
+
+  static Widget imageOrSvg({
+    required String path,
+    AlignmentGeometry? alignment,
+    Color? color,
+    double? height,
+    double? width,
+    BoxFit? fit,
+  }) {
+    return path.split('.').last == 'svg'
+        ? SvgPicture.asset(
+            path,
+            alignment: alignment ?? Alignment.center,
+            colorFilter:
+                ColorFilter.mode(color ?? Colors.black, BlendMode.dstIn),
+            height: height,
+            width: width,
+            fit: fit ?? BoxFit.contain,
+            placeholderBuilder: (context) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          )
+        : Image.asset(
+            path,
+            alignment: alignment ?? Alignment.center,
+            height: height,
+            width: width,
+            fit: fit ?? BoxFit.contain,
+            errorBuilder: (context, error, stackTrace) {
+              return commonIcon(Icons.error_outline);
+            },
+          );
   }
 
   static void commonPrint(String text) {
