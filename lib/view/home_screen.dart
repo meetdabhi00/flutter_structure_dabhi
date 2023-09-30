@@ -4,6 +4,7 @@ import 'package:flutter_project_structure_meet/constants/translation_constants.d
 import 'package:flutter_project_structure_meet/global.dart';
 import 'package:flutter_project_structure_meet/provider/app_provider.dart';
 import 'package:flutter_project_structure_meet/provider/common_provider.dart';
+import 'package:flutter_project_structure_meet/utils/common_navigator.dart';
 import 'package:flutter_project_structure_meet/utils/utils.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -55,15 +56,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      navigator.currentState?.pushNamed(
-                        RoutePath.post_detail,
+                      CommonNavigator.pushName(
+                        routePath: RoutePath.post_detail,
                         arguments: posts[index],
                       );
-                      // Navigator.pushNamed(
-                      //   context,
-                      //   RoutePath.post_detail,
-                      //   arguments: posts[index],
-                      // );
                     },
                     child: Container(
                       margin: const EdgeInsets.all(8),
