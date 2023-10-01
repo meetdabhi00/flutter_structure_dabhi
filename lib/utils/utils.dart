@@ -2,7 +2,6 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_structure_meet/constants/app_colors.dart';
 import 'package:flutter_project_structure_meet/utils/common_navigator.dart';

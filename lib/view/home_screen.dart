@@ -38,7 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    commonPrint('meet dabhi');
     return Scaffold(
       appBar: Utils.appBar(
         context: context,
