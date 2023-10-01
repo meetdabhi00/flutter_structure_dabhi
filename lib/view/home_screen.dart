@@ -38,53 +38,50 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    commonPrint('meet dabhi');
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(Utils.getString(TranslationConstants.home_screen)),
-      //   backgroundColor: Colors.blue,
-      //   leading: const SizedBox(),
-      //   centerTitle: true,
-      // ),
       appBar: Utils.appBar(
         context: context,
         title: 'App Bar',
         rightWidget: const SizedBox.shrink(),
       ),
-      body: Consumer<AppProvider>(builder: (context, appProvider, child) {
-        if (appProvider.isLoading) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        return posts.isNotEmpty
-            ? ListView.builder(
-                itemCount: posts.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      CommonNavigator.pushName(
-                        routePath: RoutePath.post_detail,
-                        arguments: posts[index],
-                      );
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: ListTile(
-                        title: Text(
-                          posts[index].title,
-                          style: TextStyle(fontSize: 20.sp),
+      body: Consumer<AppProvider>(
+        builder: (context, appProvider, child) {
+          if (appProvider.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return posts.isNotEmpty
+              ? ListView.builder(
+                  itemCount: posts.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        CommonNavigator.pushName(
+                          routePath: RoutePath.post_detail,
+                          arguments: posts[index],
+                        );
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        subtitle: Text(posts[index].body,
-                            style: TextStyle(fontSize: 20.sp)),
+                        child: ListTile(
+                          title: Text(
+                            posts[index].title,
+                            style: TextStyle(fontSize: 20.sp),
+                          ),
+                          subtitle: Text(posts[index].body,
+                              style: TextStyle(fontSize: 20.sp)),
+                        ),
                       ),
-                    ),
-                  );
-                },
-              )
-            : const SizedBox.shrink();
-      }),
+                    );
+                  },
+                )
+              : const SizedBox.shrink();
+        },
+      ),
     );
   }
 }

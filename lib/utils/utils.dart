@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -56,24 +57,24 @@ class Utils {
     bool? actionButton,
   }) {
     return AppBar(
+      centerTitle: centerTitle,
       toolbarHeight: 75.h,
       iconTheme: IconThemeData(color: AppColor.icon),
       backgroundColor: AppColor.appbarColor,
       leadingWidth: leadingWidth ?? 45,
-      centerTitle: centerTitle,
-      title: commonText(
-        text: title ?? '',
+      leading: leftWidget ?? backArrow(backArrowTap: backArrowTap),
+      title: text(
+        text: title,
         color: AppColor.appbarTextColor,
         fontSize: 30.sp,
       ),
-      leading: leftWidget ?? backArrow(backArrowTap: backArrowTap),
       actions: [
         rightWidget ??
             Padding(
               padding: const EdgeInsets.only(right: 10),
               child: GestureDetector(
                 onTap: actionButtonOnTap,
-                child: commonIcon(
+                child: icon(
                   actionButtonIcon ?? Icons.info_outline,
                   color: AppColor.icon,
                   size: 35.sp,
@@ -95,7 +96,7 @@ class Utils {
       onTap: backArrowTap ?? () => CommonNavigator.pop(),
       child: Padding(
         padding: const EdgeInsets.only(left: 20),
-        child: Utils.commonIconButton(
+        child: Utils.iconButton(
           width: 50,
           icon: Icons.arrow_back_ios,
           iconColor: AppColor.icon,
@@ -143,7 +144,7 @@ class Utils {
     return BorderRadius.circular(radius);
   }
 
-  static Widget commonIconButton({
+  static Widget iconButton({
     required IconData icon,
     double? width,
     double? height,
@@ -171,7 +172,7 @@ class Utils {
         backgroundColor: backgroundColor ?? Colors.transparent,
         alignment: alignment ?? Alignment.center,
         child: Center(
-          child: Utils.commonIcon(
+          child: Utils.icon(
             size: iconSize,
             icon,
             color: iconColor ?? AppColor.white,
@@ -181,7 +182,7 @@ class Utils {
     );
   }
 
-  static Widget commonText({
+  static Widget text({
     String? text,
     bool? bold = false,
     Color? color,
@@ -203,7 +204,7 @@ class Utils {
     );
   }
 
-  static Widget commonIcon(
+  static Widget icon(
     IconData icon, {
     Color? color,
     double? size,
@@ -239,11 +240,13 @@ class Utils {
         ? SvgPicture.asset(
             path,
             alignment: alignment ?? Alignment.center,
-            colorFilter:
-                ColorFilter.mode(color ?? Colors.black, BlendMode.dstIn),
             height: height,
             width: width,
             fit: fit ?? BoxFit.contain,
+            colorFilter: ColorFilter.mode(
+              color ?? Colors.black,
+              BlendMode.dstIn,
+            ),
             placeholderBuilder: (context) {
               return const Center(
                 child: CircularProgressIndicator(),
@@ -257,27 +260,35 @@ class Utils {
             width: width,
             fit: fit ?? BoxFit.contain,
             errorBuilder: (context, error, stackTrace) {
-              return commonIcon(Icons.error_outline);
+              return icon(Icons.error);
             },
           );
   }
 
-  static void commonPrint(String text) {
-    if (kDebugMode) {
-      print(text);
-    }
-    return print(text);
+  static Widget cachedNetworkImage({
+    required String imageUrl,
+    BoxFit? fit,
+    double? height,
+    double? width,
+  }) {
+    return CachedNetworkImage(
+      imageUrl: imageUrl,
+      fit: fit,
+      height: height,
+      width: width,
+      errorWidget: (context, url, error) => const Icon(Icons.error),
+      placeholder: (context, url) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+      progressIndicatorBuilder: (context, url, downloadProgress) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
   }
+}
 
-  //   static void toast(String text) {
-  //   Fluttertoast.showToast(
-  //     msg: text,
-  //     toastLength: Toast.LENGTH_SHORT,
-  //     gravity: ToastGravity.BOTTOM,
-  //     timeInSecForIosWeb: 1,
-  //     backgroundColor: Colors.black,
-  //     textColor: Colors.white,
-  //     fontSize: 26.0.sp,
-  //   );
-  // }
+void commonPrint(String text) {
+  print(text);
 }
